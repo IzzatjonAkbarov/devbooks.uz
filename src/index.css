@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+@import "tailwindcss";
+* {
+  box-sizing: border-box;
+}
+.container1 {
+  width: 90%;
+  margin: auto;
+}
+@media (min-width: 1450px) {
+  .container1 {
+    width: 1440px;
+    margin: auto;
+  }
+}
