@@ -20,7 +20,6 @@ const SingleWriterInfo = () => {
     url: `ApiForBooks`,
   });
 
-  console.log(data1);
   return (
     <div className="w-[1440px] mx-auto">
       <div className="w-full flex  gap-10 py-2">

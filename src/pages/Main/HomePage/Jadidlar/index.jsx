@@ -5,21 +5,25 @@ import paperbooks from "../../../../shared/assets/icons/paperbooks.svg";
 import writersicon1 from "../../../../shared/assets/icons/writersicon1.svg";
 import writersicon2 from "../../../../shared/assets/icons/writersicon2.svg";
 import { useNavigate } from "react-router-dom";
-import SwiperCustom from "../../../../Components/swiper";
 const Jadidlar = () => {
-  const { data, isLoading } = useQueryHandler({
+  const navigate = useNavigate();
+  const { data, isLoading, isError } = useQueryHandler({
     pathname: "todo",
     url: "ApiForWriters",
   });
+  const {
+    data: secondData,
+    isLoading: secondIsLoading,
+    isError: secondIsError,
+  } = useQueryHandler({
+    pathname: "second",
+    url: "ApiForWriters",
+  });
 
-  const navigate = useNavigate();
-  const HandleClick = (id) => {
-    navigate(`/writers/${id}`);
-  };
   return (
     <>
       <div className="text-white">
-        {isLoading ? (
+        {secondIsLoading || secondIsError ? (
           <div className="flex items-start container1  gap-10 flex-wrap justify-center">
             <div
               role="status"
@@ -224,9 +228,9 @@ const Jadidlar = () => {
           </div>
         ) : (
           <div className="flex items-start container1 gap-10 flex-wrap justify-center py-10">
-            {data?.map((value) => (
+            {secondData?.map((value) => (
               <div
-                onClick={() => HandleClick(value?.id)}
+                onClick={() => navigate(`/writers/${value.id}`)}
                 id={value?.id}
                 className="w-[170px] max-[425px]:w-full overflow-hidden shadow-[0_3px_2px_rgba(0,0,0,0.12),0_7px_5px_rgba(0,0,0,0.03),0_13px_10px_rgba(0,0,0,0.04),0_22px_18px_rgba(0,0,0,0.04),0_42px_33px_rgba(0,0,0,0.05),0_100px_80px_rgba(0,0,0,0.07)] bg-gradient-to-br from-[#191919] to-[#212121]  rounded-lg  transition-all "
                 key={value?.id}>

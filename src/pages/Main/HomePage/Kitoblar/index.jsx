@@ -8,7 +8,15 @@ const Kitoblar = () => {
     url: "ApiForBooks",
   });
   console.log(data);
-
+  const {
+    data: second,
+    isLoading: secondIsloading,
+    isError: secondIsError,
+  } = useQueryHandler({
+    pathname: "todo",
+    url: "ApiForBooks",
+  });
+  console.log(data);
   const navigate = useNavigate();
 
   const HandleClick = (id) => {
@@ -16,7 +24,7 @@ const Kitoblar = () => {
   };
   return (
     <div className="text-white">
-      {isLoading ? (
+      {secondIsloading ? (
         <div className="flex items-start container1  gap-10 flex-wrap justify-center">
           <div
             role="status"
@@ -221,7 +229,7 @@ const Kitoblar = () => {
         </div>
       ) : (
         <div className="flex items-start container1 gap-10 flex-wrap justify-center py-10">
-          {data?.map((value) => (
+          {second?.map((value) => (
             <div
               key={value.id}
               className="w-[165px] h-auto max-[412px]:w-full"
