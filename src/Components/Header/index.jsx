@@ -1,39 +1,79 @@
-import { Tabs } from "antd";
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import userimg from "../../shared/assets/images/userimg.png";
+import React, { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import defUser from "../../shared/assets/images/defUser.png";
+import { Button, Drawer } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 const Header = () => {
-  const onChange = (key) => {
-    console.log(key);
+  let User = JSON.parse(localStorage.getItem("user"));
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
   };
-  const items = [
-    {
-      key: "1",
-      label: "Tab 1",
-      children: "Content of Tab Pane 1",
-    },
-    {
-      key: "2",
-      label: "Tab 2",
-      children: "Content of Tab Pane 2",
-    },
-    {
-      key: "3",
-      label: "Tab 3",
-      children: "Content of Tab Pane 3",
-    },
-  ];
+  const onClose = () => {
+    setOpen(false);
+  };
+  const navigate = useNavigate();
+  const handleAuthorization = () => {
+    if (localStorage.getItem("token") || localStorage.getItem("user")) {
+      navigate("/user-page");
+    } else {
+      navigate("/authorization");
+    }
+  };
   return (
     <div className="border-b border-b-[#303030]">
       <div className="flex items-center justify-between container1 ">
-        <Link to={"/"} className="text-[25px] font-normal text-[#c9ac8c]  ">
-          Badiiyat
-        </Link>
+        <div className="flex items-center gap-3">
+          <div className="hidden max-[768px]:block">
+            <Button
+              className="!bg-transparent"
+              icon={<MenuOutlined className="!text-gray-300" />}
+              onClick={showDrawer}></Button>
+            <Drawer
+              placement="left"
+              title="Basic Drawer"
+              onClose={onClose}
+              open={open}>
+              <div className="text-white flex items-start  flex-col  gap- ">
+                <NavLink className="">
+                  <div className="py-3 hover:text-amber-200 transition-all ">
+                    Bosh sahifa
+                  </div>
+                </NavLink>
+                <NavLink className="">
+                  <div className="py-3 hover:text-amber-200 transition-all">
+                    Nasr
+                  </div>
+                </NavLink>
+                <NavLink className="">
+                  <div className="py-3 hover:text-amber-200 transition-all">
+                    Nazm
+                  </div>
+                </NavLink>
+                <NavLink className="">
+                  <div className="py-3 hover:text-amber-200 transition-all">
+                    Maqolalar
+                  </div>
+                </NavLink>{" "}
+                <NavLink className="">
+                  <div className="py-3 hover:text-amber-200 transition-all">
+                    Forum
+                  </div>
+                </NavLink>
+              </div>
+            </Drawer>
+          </div>
+          <Link to={"/"} className="text-[25px] font-normal text-[#c9ac8c]  ">
+            <h1 className="relative   font-light text-[#c4a380] tracking-wide font-['Great_Vibes']">
+              Badiiyat
+            </h1>
+          </Link>
+        </div>
 
         <div className="flex items-center gap-20">
-          <div className="text-white flex items-center gap-10">
+          <div className="text-white flex items-center gap-10 max-[768px]:hidden">
             <NavLink className="">
-              <div className="py-6 hover:text-amber-200 transition-all">
+              <div className="py-6 hover:text-amber-200 transition-all ">
                 Bosh sahifa
               </div>
             </NavLink>
@@ -59,8 +99,14 @@ const Header = () => {
             </NavLink>
           </div>
 
-          <div className=" rounded-full w-fit overflow-hidden">
-            <img src={userimg} alt="" />
+          <div
+            onClick={handleAuthorization}
+            className=" rounded-full w-fit overflow-hidden">
+            <img
+              className="w-10 h-10"
+              src={User.profileImage || defUser}
+              alt=""
+            />
           </div>
         </div>
       </div>

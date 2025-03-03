@@ -4,13 +4,22 @@ import MainLayout from "../shared/Layouts/MainLayout";
 import AuthLayout from "../shared/Layouts/AuthLayout";
 
 import SignInPage from "../pages/Authorization/SignInPage";
-import LoginPage from "../pages/Authorization/LoginPage";
+import LoginPage from "../pages/Authorization/SignUpPage";
 import UserLayout from "../shared/Layouts/UserLayout";
 import ProfilePage from "../pages/User/ProfilePage";
-import SecurityPage from "../pages/User/SecurityPage";
+
 import SettingsPage from "../pages/User/SettingsPage";
 import HomePage from "../pages/Main/HomePage";
 
+import Jadidlar from "../pages/Main/HomePage/Jadidlar";
+import TemuriylarDavri from "../pages/Main/HomePage/TemuriylarDavri";
+import SovetDavri from "../pages/Main/HomePage/SovetDavri";
+import MustaqillikDavri from "../pages/Main/HomePage/MustaqillikDavri";
+import SingleWriterInfo from "../Components/SingleWriterInfo";
+import Kitoblar from "../pages/Main/HomePage/Kitoblar";
+import SingleBook from "../Components/SingleBook";
+import SignUp from "../pages/Authorization/SignUpPage";
+import SecurityPage from "../../src/pages/User/SecurityPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -19,19 +28,55 @@ export const router = createBrowserRouter([
       {
         path: "/",
         Component: HomePage,
+        children: [
+          {
+            path: "/temuriylardavri",
+
+            Component: TemuriylarDavri,
+          },
+          {
+            path: "/",
+
+            Component: Jadidlar,
+          },
+          {
+            path: "/sovetdavri",
+
+            Component: SovetDavri,
+          },
+          {
+            path: "/mustaqillikdavri",
+
+            Component: MustaqillikDavri,
+          },
+
+          {
+            path: "/kitoblar",
+            Component: Kitoblar,
+          },
+        ],
+      },
+      {
+        path: "/writers/:id",
+        Component: SingleWriterInfo,
+      },
+      {
+        path: "/kitoblar/:id",
+        Component: SingleBook,
       },
     ],
   },
+
   {
     path: "/authorization",
     element: <AuthLayout />,
     children: [
       {
-        path: "/authorization/login-page",
-        Component: LoginPage,
+        path: "/authorization/signup-page",
+        Component: SignUp,
       },
       {
-        path: "/authorization/signin-page",
+        path: "/authorization",
         Component: SignInPage,
       },
     ],
@@ -41,7 +86,7 @@ export const router = createBrowserRouter([
     element: <UserLayout />,
     children: [
       {
-        path: "/user-page/profile-page",
+        path: "/user-page",
         Component: ProfilePage,
       },
       {

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
 @import "tailwindcss";
 * {
   box-sizing: border-box;
@@ -12,4 +13,10 @@
     width: 1440px;
     margin: auto;
   }
+}
+.logo {
+  font-family: "Great Vibes", sans-serif;
+}
+.active {
+  color: #c9ac8c;
 }
