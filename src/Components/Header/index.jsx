@@ -104,7 +104,7 @@ const Header = () => {
             className=" rounded-full w-fit overflow-hidden">
             <img
               className="w-10 h-10"
-              src={User.profileImage || defUser}
+              src={User?.profileImage || defUser}
               alt=""
             />
           </div>
